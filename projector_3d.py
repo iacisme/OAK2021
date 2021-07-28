@@ -17,7 +17,8 @@ class PointCloudVisualizer():
                                                                          intrinsic_matrix[1][1],
                                                                          intrinsic_matrix[0][2],
                                                                          intrinsic_matrix[1][2])
-        
+        # Added to code by CALGARY_STORM.
+        # This will flip the view in the display so that it's on inverted
         self.flip_transform = [[1, 0, 0, 0], [0, -1, 0, 0], [0, 0, -1, 0], [0, 0, 0, 1]]
         
         self.vis = o3d.visualization.Visualizer()
@@ -44,13 +45,21 @@ class PointCloudVisualizer():
 
     def visualize_pcd(self):
         if not self.isstarted:
+            # Code added by CALGARY_STORM. Code flips the 3D image so that it 
+            # displays correctly, otherwise image displays inverted, and you 
+            # will need to manually invert the picture
             self.pcl.transform(self.flip_transform)
             self.vis.add_geometry(self.pcl)
+            # TODO: DELETE THE COMMENTED OUT CODE (CALGARY_STORM)
+            # THIS CODE CREATES A 3D AXIS, RED, GREEN, BLUE. 
             #origin = o3d.geometry.TriangleMesh.create_coordinate_frame(size=0.3, origin=[0, 0, 0])
             #self.vis.add_geometry(origin)
             self.vis.add_geometry(self.pcl)
             self.isstarted = True
         else:
+            # Code added by CALGARY_STORM. Code flips the 3D image so that it 
+            # displays correctly, otherwise image displays inverted, and you 
+            # will need to manually invert the picture
             self.pcl.transform(self.flip_transform)
             self.vis.update_geometry(self.pcl)
             self.vis.poll_events()
