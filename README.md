@@ -1,2 +1,4 @@
 # OAK2021
-OAK2021_competition
+
+This repository holds the source code, and other files for our entry into the **#OAK2021** competition.
+
