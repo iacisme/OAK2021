@@ -1,0 +1,18 @@
+# This code comes from this reply on stackoverflow: 
+# https://stackoverflow.com/questions/62809091/update-camera-intrinsic-parameter-in-open3d-python
+# to define both the intrinsic and the extrinsic matrices
+
+intrinsic = o3d.camera.PinholeCameraIntrinsic(w, h, fx, fy, cx, cy)
+
+intrinsic.intrinsic_matrix = [[fx, 0, cx], [0, fy, cy], [0, 0, 1]]
+
+cam = o3d.camera.PinholeCameraParameters()
+
+cam.intrinsic = intrinsic
+
+cam.extrinsic = np.array([[0., 0., 0., 0.], [0., 0., 0., 0.], [0., 0., 0., 0.], [0., 0., 0., 1.]]) #Unless you have extrinsic values
+
+pcd = o3d.geometry.create_point_cloud_from_rgbd_image(rgbd_image, 
+                                                      cam.intrinsic, 
+                                                      cam.extrinsic
+                                                     )
